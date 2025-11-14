@@ -1,1 +1,2 @@
-# AE-GR2
+Proiect AE-GR2
+
