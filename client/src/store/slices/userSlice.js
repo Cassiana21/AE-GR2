@@ -1,4 +1,3 @@
-// client/src/store/slices/userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { decodeToken } from '../../utils/decodeToken';
 

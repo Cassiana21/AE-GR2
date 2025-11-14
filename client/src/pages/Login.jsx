@@ -1,4 +1,3 @@
-// client/src/pages/Login.jsx
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
@@ -11,103 +10,104 @@ export default function Login() {
     email: "",
     password: "",
   })
-  
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     const response = await loginUser(formData)
-    
+
     if (response?.success) {
-      // Save token to Redux store and localStorage
       dispatch(setToken(response.data))
       toast.success("Login successful! Redirecting...")
-      setTimeout(() => {
-        navigate("/")
-      }, 1500)
+      setTimeout(() => navigate("/"), 1500)
     } else {
       toast.error(response?.message || "Login failed")
     }
   }
 
   return (
-      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-white to-rose-200 px-6">
+      
+      {/* Card container */}
+      <div className="backdrop-blur-lg bg-white/70 shadow-xl rounded-2xl p-8 w-full max-w-sm border border-white/40">
+        
+        {/* Logo + Title */}
+        <div className="text-center mb-8">
           <img
-            alt="Your Company"
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-            className="mx-auto h-10 w-auto"
+            alt="Brand logo"
+            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=rose&shade=500"
+            className="mx-auto h-12 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+          <h2 className="mt-4 text-2xl font-bold text-rose-700">
+            Sign in to your account
+          </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-100">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                />
-              </div>
-            </div>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700">
+              Email address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              autoComplete="email"
+              className="mt-2 block w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-slate-800 placeholder-slate-400 shadow-sm focus:ring-2 focus:ring-rose-400 focus:outline-none"
+            />
+          </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-100">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                />
-              </div>
-            </div>
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              autoComplete="current-password"
+              className="mt-2 block w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-slate-800 placeholder-slate-400 shadow-sm focus:ring-2 focus:ring-rose-400 focus:outline-none"
+            />
+          </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
+          {/* Submit button */}
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-rose-600 text-white font-semibold py-2.5 shadow-md hover:bg-rose-700 transition-all"
+          >
+            Sign in
+          </button>
+        </form>
 
-          <p className="mt-10 text-center text-sm/6 text-gray-400">
-            Don't have an account?{' '}
-            <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              Register
-            </Link>
-          </p>
-        </div>
+        {/* Bottom link */}
+        <p className="mt-6 text-center text-sm text-slate-600">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="font-semibold text-rose-600 hover:text-rose-500"
+          >
+            Register
+          </Link>
+        </p>
       </div>
+    </div>
   )
 }
