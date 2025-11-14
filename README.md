@@ -1,2 +1,2 @@
-Proiect AE-GR2
+Proiect Afaceri electronice
 
